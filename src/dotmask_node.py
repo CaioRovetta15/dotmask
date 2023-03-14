@@ -79,7 +79,7 @@ def parse_args(argv=None):
 def add_padding(img, pad_l, pad_t, pad_r, pad_b):
     height, width = img.shape
     #Adding padding to the left side.
-    pad_left = np.zeros((height, pad_l), dtype = np.int)
+    pad_left = np.zeros((height, pad_l), dtype = np.int32)
     img = np.concatenate((pad_left, img), axis = 1)
 
     #Adding padding to the top.
@@ -153,7 +153,7 @@ class DOTMask():
             import keras
             from keras.models import Model
             from keras import backend as K
-            K.common.set_image_dim_ordering('tf')
+            K.image_data_format()
 
             # Mask-RCNN
             sys.path.append('../nn/Mask_RCNN/')
@@ -180,7 +180,7 @@ class DOTMask():
         self.next_object_id = 0 # ID for next object
         self.objects_dict = {} # Detected objects dictionary
         self.var_init = 0
-        self.cam_pos_qat = np.array([[0.,0.,0.],[0.,0.,0.,1.]])
+        self.cam_pos_qat = np.array([[0.,0.,0.,0.],[0.,0.,0.,1.]])
         self.cam_pos = np.array([[0.,0.,0.],[0.,0.,0.]])
         
         self.dilatation = 1
